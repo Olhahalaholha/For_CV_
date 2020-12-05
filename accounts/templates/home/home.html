@@ -17,16 +17,17 @@
         <a href="{% url 'logout' %}" type="button" class="btn btn-light" >Выйти</a>
       {% else %}
         <a href="{% url 'login' %}" type="button" class="btn btn-light" >Войти</a>
+        <a href="{% url 'register' %}" type="button" class="btn btn-light" >Зарегистрироваться</a>
       {% endif %}
     </div>
 
-    {% if messages %}
-      {% for message in messages %}    
-        <div class="alert alert-{{message.tags }}">
-            {{ message }}
-        </div>
-      {% endfor %}
-    {% endif %}
+          {% if messages %}
+            {% for message in messages %}    
+              <div class="alert alert-{{message.tags }}">
+                {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
 
     {% block content %}
     {% endblock %}

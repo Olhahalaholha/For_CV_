@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'page_main',
     'accounts',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -123,4 +124,5 @@ STATIC_URL = '/static/'
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
-LOGIN_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = 'page_main'
+LOGOUT_REDIRECT_URL = 'home'
