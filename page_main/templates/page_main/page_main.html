@@ -1,14 +1,10 @@
 {% extends 'home/home.html' %}
 
 {% block content %}
- <ul class="article">
-  <li class="list-group-item active"><strong>Новости</strong></li>
-    {% if user.is_authenticated %}
-        <h2>{{ user.username }} is User!</h2>
-            {% for name_link in name_with_link %}
-            <li class="list-group-item"><a href="{{ name_link.1 }} ">{{ name_link.0 }}</a></li>
-             {% endfor %}
-    {% endif %}  
- </ul> 
-
-{% endblock %} 
+    <h1>Анкета</h1>
+    <form method="POST" class="post-form">{% csrf_token %}
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="save btn btn-default">Save</button>
+    </form>
+{% endblock %}

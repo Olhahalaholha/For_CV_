@@ -1,16 +1,17 @@
 from django.shortcuts import render, redirect
-#from django.http import HttpResponse
-from django.contrib.auth import login
 from django.contrib import messages
-from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.views import LoginView
-from .forms import RegisterForm
+from .forms import RegisterForm, LoginForm
 
 
-class MyLoginView(SuccessMessageMixin, LoginView):
+class MyLoginView(LoginView):
+    form_class = LoginForm
     template_name = 'registration/login.html'
-    success_url = "page_main"
-    success_message = 'Вы вошли на сайт'
+
+# class MyLoginView(LoginView):
+#     template_name = 'registration/login.html'
+#     success_url = "page_main"
+#     success_message = 'Вы вошли на сайт'
 
 
 def home(request):
@@ -21,15 +22,11 @@ def register(request):
     form = RegisterForm()
     if request.method == "POST":
         form = RegisterForm(request.POST)
-        # if request.CustomUser.is_authenticated():
-        #     messages.success(request, 'Вы вошли на сайт')
         if form.is_valid():
-            username = form.cleaned_data.get("username")
-            warning = f'Пользователь {username} зарегестрирован.'
-            messages.success(request, warning)
             form.save()
+            username = form.cleaned_data.get("username")
+            messages.success(request, f'Пользователь {username} зарегестрирован.')
             return redirect("login")
         else:
-            username = form.cleaned_data.get("username")
             messages.info(request, form.errors)
     return render(request, "registration/register.html", {"form": form})
